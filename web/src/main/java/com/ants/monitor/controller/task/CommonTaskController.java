@@ -1,15 +1,15 @@
 package com.ants.monitor.controller.task;
 
-import com.ants.monitor.common.tools.TimeUtil;
-import com.ants.monitor.dao.mapper.InvokeDOMapper;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import com.ants.monitor.common.tools.TimeUtil;
+import com.ants.monitor.dao.mapper.InvokeDOMapper;
 
 /**
  * Created by zxg on 16/3/24.
@@ -19,7 +19,6 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/monitor/invokeReportTask")
-@Slf4j
 public class CommonTaskController {
 
 

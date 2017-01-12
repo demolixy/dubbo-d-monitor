@@ -1,26 +1,25 @@
 package com.ants.monitor.biz.support.service;
 
-import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
-import com.ants.monitor.bean.bizBean.ApplicationChangeBO;
-import com.ants.monitor.biz.support.processor.NotifyAppChangeProcessor;
-import com.ants.monitor.common.tools.BdUtil;
-import com.ants.monitor.common.tools.TimeUtil;
-import com.ants.monitor.dao.redisManager.AppChangeRedisManager;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
+import com.ants.monitor.bean.bizBean.ApplicationChangeBO;
+import com.ants.monitor.biz.support.processor.NotifyAppChangeProcessor;
+import com.ants.monitor.common.tools.BdUtil;
+import com.ants.monitor.common.tools.TimeUtil;
+import com.ants.monitor.dao.redisManager.AppChangeRedisManager;
+
 /**
  * Created by zxg on 16/1/5.
  * 15:04
  */
-@Slf4j
 @Service
 public class AppChangeServiceImpl implements AppChangeService {
 
@@ -56,7 +55,7 @@ public class AppChangeServiceImpl implements AppChangeService {
 
     @Override
     public void afterChangeDeleteDo(ApplicationChangeBO applicationChangeBO) {
-        log.info("remove:" + applicationChangeBO.toString());
+//        log.info("remove:" + applicationChangeBO.toString());
 
         Date now = new Date();
         String thisTime = TimeUtil.getTimeString(now);
@@ -73,7 +72,7 @@ public class AppChangeServiceImpl implements AppChangeService {
 
     @Override
     public void afterChangeInsertDo(ApplicationChangeBO applicationChangeBO) {
-        log.info("add:" + applicationChangeBO.toString());
+//        log.info("add:" + applicationChangeBO.toString());
 
         Date now = new Date();
         String thisTime = TimeUtil.getTimeString(now);

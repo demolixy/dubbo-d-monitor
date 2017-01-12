@@ -1,8 +1,14 @@
 package com.ants.monitor.common.tools;
 
-import com.google.common.collect.Lists;
-import lombok.extern.slf4j.Slf4j;
-import org.codehaus.jackson.JsonNode;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -11,19 +17,16 @@ import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.type.JavaType;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.Lists;
 
 /**
  * success!
  * Created by zxg on 15/09/22.
  */
-@Slf4j
 public class JsonUtil {
+    
+    private final static Log log = LogFactory.getLog(JsonUtil.class);
+    
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     static {

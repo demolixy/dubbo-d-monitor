@@ -1,21 +1,29 @@
 package com.ants.monitor.common.redis;
 
-import com.ants.monitor.common.tools.JsonUtil;
-import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import redis.clients.jedis.ShardedJedis;
 
-import java.util.*;
+import com.ants.monitor.common.tools.JsonUtil;
 
 /**
  * redis封装后的类
  * Created by zxg on 15/7/20.
  */
 @Component
-@Slf4j
 public class RedisClientTemplateImpl implements RedisClientTemplate {
 
+    private Log log = LogFactory.getLog(this.getClass());
+    
     private static final Integer EXPIRE_TIME = 60 * 60 * 24 * 15; //15天有效期
 
     @Autowired

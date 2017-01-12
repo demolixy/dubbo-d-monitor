@@ -1,5 +1,17 @@
 package com.ants.monitor.controller.task;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.alibaba.dubbo.common.Constants;
 import com.ants.monitor.bean.MonitorConstants;
 import com.ants.monitor.bean.bizBean.HostBO;
@@ -10,14 +22,6 @@ import com.ants.monitor.biz.support.service.HostService;
 import com.ants.monitor.common.tools.TimeUtil;
 import com.ants.monitor.dao.redisManager.InvokeRedisManager;
 import com.ants.monitor.dao.redisManager.InvokeReportManager;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.*;
 
 /**
  * Created by zxg on 16/1/28.
@@ -26,7 +30,6 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/monitor/invokeReportTask")
-@Slf4j
 public class InvokeReportTaskController {
 
 

@@ -1,5 +1,24 @@
 package com.ants.monitor.biz.dubboService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.ConfigUtils;
@@ -12,25 +31,10 @@ import com.ants.monitor.biz.support.service.HostService;
 import com.ants.monitor.common.tools.TimeUtil;
 import com.ants.monitor.dao.mapper.InvokeDOMapper;
 import com.ants.monitor.dao.redisManager.InvokeRedisManager;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.*;
 
 /**
  * Created by zxg on 15/11/2.
  */
-@Slf4j
 public class DubboMonitorService implements MonitorService {
 
 //    private Thread saveInvokeThread;
@@ -78,11 +82,11 @@ public class DubboMonitorService implements MonitorService {
                         }
                         saveInvoke(); // 记录统计日志
                     } catch (Throwable t) { // 防御性容错
-                        log.error("Unexpected error occur at write stat log, cause: " + t.getMessage(), t);
+//                        log.error("Unexpected error occur at write stat log, cause: " + t.getMessage(), t);
                         try {
                             Thread.sleep(5000); // 失败延迟
                         } catch (Throwable t2) {
-                            log.error("sleep then still Throwable");
+//                            log.error("sleep then still Throwable");
                             t2.printStackTrace();
                         }
                     }
@@ -110,7 +114,7 @@ public class DubboMonitorService implements MonitorService {
                     try {
                         invokeDO = saveSqlQueue.take();
                     } catch (InterruptedException e) {
-                        log.info("saveSqlQueue error"+e.getMessage(),e);
+//                        log.info("saveSqlQueue error"+e.getMessage(),e);
                     }
                     if(invokeDO != null) {
                         String hour = TimeUtil.getHourString(new Date());
@@ -250,19 +254,37 @@ public class DubboMonitorService implements MonitorService {
             scheduledFuture.cancel(true);
 //            queue.offer(new URL(POISON_PROTOCOL, NetUtils.LOCALHOST, 0));
         } catch (Throwable t) {
-            log.warn(t.getMessage(), t);
+//            log.warn(t.getMessage(), t);
         }
     }
 
 
 
     //内部线程类，利用线程池异步存储发送过来的统计数据
-    @AllArgsConstructor
-    @NoArgsConstructor
     private class SaveInvokeThread implements Runnable {
         private InvokeDO invokeDO;
 
         private String hour;
+        
+        /**
+         * 
+         */
+        public SaveInvokeThread() {
+            super();
+        }
+
+
+        /**
+         * @param invokeDO
+         * @param hour
+         */
+        public SaveInvokeThread(InvokeDO invokeDO, String hour) {
+            super();
+            this.invokeDO = invokeDO;
+            this.hour = hour;
+        }
+
+
         @Override
         public void run() {
             // 缓存放一份

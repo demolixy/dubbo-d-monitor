@@ -1,20 +1,20 @@
 package com.ants.monitor.controller.task;
 
-import com.ants.monitor.bean.MonitorConstants;
-import com.ants.monitor.bean.bizBean.ApplicationChangeBO;
-import com.ants.monitor.common.tools.TimeUtil;
-import com.ants.monitor.dao.redisManager.AppStopRedisManager;
-import com.ants.monitor.dao.redisManager.ApplicationBaseRedisManager;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.ants.monitor.bean.MonitorConstants;
+import com.ants.monitor.bean.bizBean.ApplicationChangeBO;
+import com.ants.monitor.common.tools.TimeUtil;
+import com.ants.monitor.dao.redisManager.AppStopRedisManager;
+import com.ants.monitor.dao.redisManager.ApplicationBaseRedisManager;
 
 /**
  * Created by zxg on 16/1/8.
@@ -23,7 +23,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/monitor/appStopTask")
-@Slf4j
 public class AppStopTaskController {
     // 是否是线上
     @Value(value = "${is_online}")
@@ -91,14 +90,12 @@ public class AppStopTaskController {
             try {
 //                smsServiceHelp.sendMsg(mobile, MonitorConstants.SMS_STOP_ACTION, map);
                 //todo 发短信或者发邮件等任意提醒操作
-                log.info("发短信给{},内容：{}", mobile, applicationChangeBO.toString());
 
                 nowNum +=1;
                 applicationChangeBO.setTime(stopTime);
                 appStopRedisManager.saveStopApp(applicationChangeBO,nowNum);
             } catch (Exception e) {
                 e.printStackTrace();
-                log.error("send message to phone "+mobile+" wrong",e);
             }
 
         }

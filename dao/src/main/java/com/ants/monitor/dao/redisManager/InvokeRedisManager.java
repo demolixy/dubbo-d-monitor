@@ -1,23 +1,23 @@
 package com.ants.monitor.dao.redisManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ants.monitor.bean.entity.InvokeDO;
 import com.ants.monitor.common.redis.RedisClientTemplate;
 import com.ants.monitor.common.redis.RedisKeyBean;
 import com.ants.monitor.common.tools.JsonUtil;
 import com.ants.monitor.dao.mapper.InvokeDOMapper;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zxg on 15/11/6.
  * invoke核心数据存储类
  */
-@Slf4j
 @Service
 public class InvokeRedisManager {
 

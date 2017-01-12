@@ -1,23 +1,24 @@
 package com.ants.monitor.common.redis;
 
-import com.ants.monitor.common.tools.SpringContextsUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
+
+import com.ants.monitor.common.tools.SpringContextsUtil;
 
 /**
  * Created by zxg on 15/7/20.
  */
 @Component
-@Slf4j
 public class RedisDataSourceImpl implements RedisDataSource {
 
-
+    private Log log = LogFactory.getLog(this.getClass());
+    
     @Autowired
     private ShardedJedisPool shardedJedisPool;
 

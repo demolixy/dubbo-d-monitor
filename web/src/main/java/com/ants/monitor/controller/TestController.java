@@ -1,9 +1,7 @@
 package com.ants.monitor.controller;
 
-import com.ants.monitor.bean.ResultVO;
-import com.ants.monitor.biz.dubboService.RegistryContainer;
-import com.ants.monitor.common.tools.Tool;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
+import com.ants.monitor.bean.ResultVO;
+import com.ants.monitor.biz.dubboService.RegistryContainer;
+import com.ants.monitor.common.tools.Tool;
 
 /**
  * Created by zxg on 15/11/2.
@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/rest/test")
-@Slf4j
 public class TestController {
     @Autowired
     private RegistryContainer registryContainer;
@@ -29,7 +28,6 @@ public class TestController {
     public
     @ResponseBody
     ResultVO test(){
-        log.info("test is this-----=====");
         return ResultVO.wrapSuccessfulResult("success");
     }
 
