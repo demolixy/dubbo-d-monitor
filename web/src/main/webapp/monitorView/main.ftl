@@ -138,25 +138,25 @@
 
             <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                 <li class="start gotoIfreame active ">
-                    <a href="#" data-url="/monitor/dash/index">
+                    <a href="#" data-url="${base}/monitor/dash/index">
                         <i class="icon-home"></i>
                         <span class="title">首页</span>
                     </a>
                 </li>
                 <li class="gotoIfreame" id="appListButton">
-                    <a href="#" data-url="/monitor/application/main">
+                    <a href="#" data-url="${base}/monitor/application/main">
                         <i class="icon-grid"></i>
                         <span class="title">Application-服务</span>
                     </a>
                 </li>
                 <li class="gotoIfreame" id="serviceButton">
-                    <a href="#" data-url="/monitor/services/main">
+                    <a href="#" data-url="${base}/monitor/services/main">
                         <i class="icon-calendar"></i>
                         <span class="title">Service-方法</span>
                     </a>
                 </li>
                 <li class="gotoIfreame" id="hostButton">
-                    <a href="#" data-url="/monitor/hosts/main">
+                    <a href="#" data-url="${base}/monitor/hosts/main">
                         <i class="icon-list"></i>
                         <span class="title">Hosts-主机</span>
                     </a>
