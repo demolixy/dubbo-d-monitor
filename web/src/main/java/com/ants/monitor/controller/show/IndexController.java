@@ -1,5 +1,24 @@
 package com.ants.monitor.controller.show;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.ants.monitor.bean.MonitorConstants;
 import com.ants.monitor.bean.ResultVO;
 import com.ants.monitor.bean.bizBean.ApplicationChangeBO;
@@ -8,17 +27,6 @@ import com.ants.monitor.biz.support.service.ApplicationService;
 import com.ants.monitor.biz.support.service.HostService;
 import com.ants.monitor.biz.support.service.ServicesService;
 import com.ants.monitor.common.tools.TimeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.*;
 
 /**
  * Created by zxg on 15/11/5.
@@ -37,7 +45,7 @@ public class IndexController {
     private AppChangeService appChangeService;
 
     //主页
-    @RequestMapping(value = "main")
+    @RequestMapping(value = "main", method = RequestMethod.GET)
     public ModelAndView main(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String name = (String) session.getAttribute(MonitorConstants.SESSION_USER_NAME);
