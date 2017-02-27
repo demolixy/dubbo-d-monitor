@@ -1,4 +1,4 @@
-<#assign base=request.contextPath />
+<#include "/monitorView/commons/commons.ftl" />
 
 <!DOCTYPE html>
 
@@ -238,12 +238,9 @@
         Layout.init();
     });
 
-
-
 </script>
 
 <script src="${base}/resources/js/main.js" type="text/javascript"></script>
-
 
 <!-- END JAVASCRIPTS -->
 </body>

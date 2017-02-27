@@ -3,12 +3,16 @@ package com.ants.monitor.bean.bizBean;
 import java.util.Map;
 import java.util.Set;
 
+import com.alibaba.dubbo.common.URL;
+
 /**
  * services 的biz bean类
  * Created by zxg on 15/11/16.
  */
 public class ServiceBO {
 
+    private String serviceId;
+    
     private String serviceName;
 
     private Set<String> methods;
@@ -19,6 +23,22 @@ public class ServiceBO {
 
     // 若同个service 存在的方法不一样，则此service 出错
     private Boolean isWrong = false;
+
+    private URL url;
+    
+    /**
+     * @return the url
+     */
+    public URL getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(URL url) {
+        this.url = url;
+    }
 
     //错误原因
     private String wrongReason;
@@ -37,7 +57,9 @@ public class ServiceBO {
     //本地起了测试或线上，测试起了线上
     private Boolean isHostWrong = false;
 
-    //每个method提供的host地址
+    //每个method提供的host地址 
+    // FIXME 这里看目前只是用了一个单个的URL所包含的host信息
+    // 并不包含集群
     private Map<String,Set<HostBO>> methodsHost;
 
     //最后消费时间
@@ -118,6 +140,20 @@ public class ServiceBO {
      */
     public String getWrongReason() {
         return wrongReason;
+    }
+
+    /**
+     * @return the serviceId
+     */
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    /**
+     * @param serviceId the serviceId to set
+     */
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 
     /**

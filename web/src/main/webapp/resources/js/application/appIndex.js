@@ -26,7 +26,7 @@ function initData() {
         var loadingEL = $('#app_main_body');
         Metronic.blockUI(loadingEL);
         $.ajax({
-            url: headerUrl + "/monitor/application/getAllAPPAndRelation",
+            url: sys.getContextPath() + "/monitor/application/getAllAPPAndRelation",
             //同步
             async: false,
             success: function (resultVO) {
@@ -208,7 +208,7 @@ function initeCharts() {
 
     require.config({
         paths: {
-            echarts: headerUrl + '/resources/echarts/dist'
+            echarts: sys.getContextPath() + '/resources/echarts/dist'
         }
     });
     require(
@@ -321,6 +321,22 @@ function initServiceTable(appName) {
         Amm.changeiframeParentHeight();
         return false;
     });
+    
+    $(".invokeMethod").unbind("click").click(function(result) {
+        var id = this.id;
+        // 获取相关service的name
+        var serviceName = $(this).parent().parent().children("td").get(1).innerHTML.trim();
+        var appName = $("#services_app_span").text().trim();
+        var params = {
+            id : id,
+            serviceName : serviceName,
+            appName : appName
+        };
+        $.get(sys.getContextPath() + "/monitor/application/invokeMethodDetail", params, function(result) {
+        
+        });
+    });
+    
     $('.Tooltip').tooltip()
 }
 
@@ -585,7 +601,7 @@ function aPPRelationForceChart(appName, type) {
     var key = nowDate + type + appName + "aPPRelationForceChart";
     var option = JSON.parse(storage.getItem(key));
     if (option == undefined) {
-        $.get(headerUrl + "/monitor/application/getSuccessByConsumer", {
+        $.get(sys.getContextPath() + "/monitor/application/getSuccessByConsumer", {
             type: type,
             source: appName
         }, function (resultVO) {
@@ -781,7 +797,7 @@ function aPPRelationBarChart(type) {
     if (success_option == undefined) {
         // 按小时展示
         if(type == 'Today' || type == 'Yesterday') {
-            $.get(headerUrl + "/monitor/application/getSuccessByConsumerOnHour", {
+            $.get(sys.getContextPath() + "/monitor/application/getSuccessByConsumerOnHour", {
                 type: type,
                 source: appName
             }, function (resultVO) {
@@ -794,7 +810,7 @@ function aPPRelationBarChart(type) {
         }
         // 按天展示
         if(type == 'Seven_DAY' || type == 'Fifteen_DAT') {
-            $.get(headerUrl + "/monitor/application/getSuccessByConsumerOnDay", {
+            $.get(sys.getContextPath() + "/monitor/application/getSuccessByConsumerOnDay", {
                 type: type,
                 source: appName
             }, function (resultVO) {

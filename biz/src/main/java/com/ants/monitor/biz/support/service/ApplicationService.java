@@ -1,14 +1,14 @@
 package com.ants.monitor.biz.support.service;
 
-import com.ants.monitor.bean.bizBean.ApplicationBO;
-import com.ants.monitor.bean.bizBean.HostBO;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.ants.monitor.bean.bizBean.ApplicationBO;
+
 /**
  * Created by zxg on 15/11/11.
+ * 
  */
 public interface ApplicationService {
     //热数据
@@ -19,4 +19,5 @@ public interface ApplicationService {
 
     // app名称，app对象
     Map<String,ApplicationBO> getApplicationsBOMap();
+    
 }

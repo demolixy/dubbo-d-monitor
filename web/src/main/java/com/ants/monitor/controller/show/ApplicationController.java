@@ -1,23 +1,40 @@
 package com.ants.monitor.controller.show;
 
-import com.alibaba.dubbo.common.Constants;
-import com.ants.monitor.bean.MonitorConstants;
-import com.ants.monitor.bean.ResultVO;
-import com.ants.monitor.bean.bizBean.ApplicationBO;
-import com.ants.monitor.bean.bizBean.MethodRankBO;
-import com.ants.monitor.bean.bizBean.ServiceBO;
-import com.ants.monitor.biz.bussiness.InvokeBiz;
-import com.ants.monitor.biz.support.service.ApplicationService;
-import com.ants.monitor.common.tools.TimeUtil;
-import com.ants.monitor.dao.redisManager.InvokeReportManager;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections.map.LRUMap;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.*;
+import com.alibaba.dubbo.common.Constants;
+import com.alibaba.dubbo.common.URL;
+import com.alibaba.dubbo.config.spring.AnnotationBean;
+import com.alibaba.dubbo.config.spring.ReferenceBean;
+import com.ants.monitor.bean.MonitorConstants;
+import com.ants.monitor.bean.ResultVO;
+import com.ants.monitor.bean.bizBean.ApplicationBO;
+import com.ants.monitor.bean.bizBean.MethodRankBO;
+import com.ants.monitor.bean.bizBean.ServiceBO;
+import com.ants.monitor.bean.invoke.InvokeBean;
+import com.ants.monitor.biz.bussiness.InvokeBiz;
+import com.ants.monitor.biz.support.service.ApplicationService;
+import com.ants.monitor.common.tools.SpringContextsUtil;
+import com.ants.monitor.common.tools.TimeUtil;
+import com.ants.monitor.dao.redisManager.InvokeReportManager;
 
 /**
  * Created by zxg on 15/11/7.
@@ -40,6 +57,8 @@ public class ApplicationController {
         return new ModelAndView("monitorView/application/appIndex");
     }
 
+    
+    private LRUMap serviceVo = new LRUMap();
 
     //所有服务和其相关信息
     @RequestMapping(value = "/getAllAPPAndRelation", method = RequestMethod.GET)
@@ -69,6 +88,8 @@ public class ApplicationController {
                         Set<ServiceBO> serviceBOSet = entry.getValue();
                         for (ServiceBO serviceBO : serviceBOSet) {
                             serviceSet.add(serviceBO.getServiceName());
+                            serviceVo.put(serviceBO.getServiceId(), serviceBO.getUrl());
+                            serviceBO.setUrl(null);
                         }
                     }
                 }
@@ -309,6 +330,33 @@ public class ApplicationController {
         return ResultVO.wrapSuccessfulResult(list);
     }
 
+    @RequestMapping(value = "/invokeMethodDetail", method = RequestMethod.GET)
+    public 
+    @ResponseBody
+    InvokeBean getInvokeBean(String id, String serviceName, String appName) {
+        if(StringUtils.isBlank(id)) {
+            return null;
+        }
+        URL serviceUrl = (URL) serviceVo.get(id);
+        ReferenceBean t = new ReferenceBean();
+        t.setUrl(serviceUrl.toFullString());
+        
+        Map<?, ApplicationContextAware> trrrr = SpringContextsUtil.getApplicationContext().getBeansOfType(ApplicationContextAware.class);
+        
+        
+        System.out.println(trrrr);
+        
+//        t.setInterface(serviceName);
+//        try {
+////            t.setInterface(Class.forName(serviceName));
+////        } catch (ClassNotFoundException e) {
+//        }
+        
+        return null;
+    }
+    
+    
+    
     //=======private======
     private List<String> getRecentDay(String type) {
         Integer limit = 0;

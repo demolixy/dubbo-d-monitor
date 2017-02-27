@@ -76,7 +76,7 @@
         {{#wrongFunc}}
         <td>{{.}}</td>
         {{/wrongFunc}}
-        <td style="text-align: left">
+        <td style="text-align: left" class="name">
             {{serviceName}}
         </td>
         <td>{{owner}}</td>
@@ -84,6 +84,7 @@
             {{{consumersFunc}}}
         </td>
         <td>{{finalConsumerTime}}</td>
+        <td><button class="invokeMethod" id="{{serviceId}}">接口调用</button> </td>
     </tr>
     <tr class="hidden method" >
         <td colspan="5" style="text-align: left">

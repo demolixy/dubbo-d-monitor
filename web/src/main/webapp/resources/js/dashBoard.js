@@ -210,7 +210,7 @@ function getMoreRecord(){
         if(day != undefined){
             params['day']=day;
         }
-        $.get(headerUrl + "/monitor/dash/getMonthChangeData", params, function (resultVO) {
+        $.get(sys.getContextPath() + "/monitor/dash/getMonthChangeData", params, function (resultVO) {
                 record_map[key] = resultVO;
 
                 resultTOTbody(resultVO);
@@ -478,7 +478,7 @@ function initeCharts() {
 
     require.config({
         paths: {
-            echarts: headerUrl + '/resources/echarts/dist'
+            echarts: sys.getContextPath() + '/resources/echarts/dist'
         }
     });
     require(
@@ -499,7 +499,7 @@ function initeCharts() {
 //所有app之间的依赖关系
 function allAPPRelationForceChart(ec) {
     $.ajax({
-        url: headerUrl + "/monitor/application/getAllAPPAndRelation",
+        url: sys.getContextPath() + "/monitor/application/getAllAPPAndRelation",
         success: function (resultVO) {
             if (!resultVO.success) {
                 $("#all_app_relation_force_echarts").html("加载失败~！原因：" + resultVO.msg);

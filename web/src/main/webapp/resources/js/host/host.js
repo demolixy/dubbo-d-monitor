@@ -7,7 +7,7 @@ $(function () {
 
 
 function initData() {
-    $.get(headerUrl + "/monitor/hosts/getAllHostPage", function (resultVO) {
+    $.get(sys.getContextPath() + "/monitor/hosts/getAllHostPage", function (resultVO) {
         if (resultVO.success) {
             var resutMap = resultVO.data;
             var sum = resutMap['sum'];

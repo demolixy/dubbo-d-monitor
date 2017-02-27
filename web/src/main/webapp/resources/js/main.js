@@ -1,4 +1,3 @@
-var headerUrl = 'http://'+window.location.host;
 $(function(){
     //名字的不存在
     //$("#edit_name_btn").click(function(){
@@ -74,7 +73,7 @@ function changeHeightWidth(){
 
 // 获得最后更新时间
 function getFinalUpdateTime(){
-    $.get(headerUrl+"/monitor/common/getFinalTime",function(resultVO){
+    $.get(sys.getContextPath() + "/monitor/common/getFinalTime",function(resultVO){
         if(resultVO.success){
             $('#final_update_time').text(resultVO.data)
         }

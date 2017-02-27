@@ -14,15 +14,19 @@
  */
 package com.ants.monitor.common.tools;
 
-import com.alibaba.dubbo.common.Constants;
-import com.alibaba.dubbo.common.URL;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
+
+import com.alibaba.dubbo.common.Constants;
+import com.alibaba.dubbo.common.URL;
 
 /**
  * Tool
@@ -143,8 +147,8 @@ public class Tool {
 
 
     //判断是否是禁止的url
-    public static Boolean compareIsOverride(URL url,Set<URL> forbitUrlSet){
-        if(null == forbitUrlSet || forbitUrlSet.isEmpty()){
+    public static Boolean compareIsOverride(URL url, Set<URL> forbitUrlSet) {
+        if (null == forbitUrlSet || forbitUrlSet.isEmpty()) {
             return false;
         }
         String host = url.getHost();
@@ -153,12 +157,13 @@ public class Tool {
         String version = url.getParameter(Constants.VERSION_KEY);
 
         Boolean result = false;
-        for(URL compareUrl : forbitUrlSet){
+        for (URL compareUrl : forbitUrlSet) {
             String compareHost = compareUrl.getHost();
             Integer comparePort = compareUrl.getPort();
             String comparePath = compareUrl.getPath();
             String compareVersion = compareUrl.getParameter(Constants.VERSION_KEY);
-            if(host.equals(compareHost) && port.equals(comparePort) && path.equals(comparePath) && version.equals(compareVersion)){
+            if (StringUtils.equals(host, compareHost) && ObjectUtils.equals(port, comparePort)
+                    && ObjectUtils.equals(path, comparePath) && ObjectUtils.equals(version, compareVersion)) {
                 result = true;
                 break;
             }

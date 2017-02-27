@@ -21,7 +21,7 @@ $(function () {
 
 
 function initData() {
-    $.get(headerUrl + "/monitor/services/getAllService", function (resultVO) {
+    $.get(sys.getContextPath() + "/monitor/services/getAllService", function (resultVO) {
         if (resultVO.success) {
             var resutMap = resultVO.data;
             allAppResultMap = resutMap.allServicesMap;
@@ -104,7 +104,7 @@ function initeCharts(functionName, param) {
 
     require.config({
         paths: {
-            echarts: headerUrl + '/resources/echarts/dist'
+            echarts: sys.getContextPath() + '/resources/echarts/dist'
         }
     });
     require(
@@ -627,7 +627,7 @@ function serviceArtChart(serviceName,methodName, type,success_func){
         //小数点后保留4位
         var pointNumber = 4;
         $.ajax({
-            url: headerUrl + "/monitor/services/getMethodSumOneDay",
+            url: sys.getContextPath() + "/monitor/services/getMethodSumOneDay",
             data:{serviceName:serviceName,methodName:methodName,type:type},
             success: function (result) {
                 Metronic.unblockUI($('#tabbable-custom'));

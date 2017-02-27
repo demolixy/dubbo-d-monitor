@@ -619,8 +619,7 @@ var Metronic = function () {
 
         // wrMetronicer function to  block element(indicate loading)
         blockUI: function (el,centerY) {
-            var headerUrl = 'http://' + window.location.host;
-            var html = '<img src="' + headerUrl + '/resources/assets/img/gif/cat.gif" align="">';
+            var html = '<img src="' + sys.getContextPath(); + '/resources/assets/img/gif/cat.gif" align="">';
             var el = jQuery(el);
             if (el.height() <= 400) {
                 centerY = true;

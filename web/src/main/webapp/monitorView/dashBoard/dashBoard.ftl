@@ -1,4 +1,4 @@
-<#assign base=request.contextPath />
+<#include "/monitorView/commons/commons.ftl" />
 
 <!DOCTYPE html>
 
@@ -530,7 +530,7 @@
 <script src="${base}/resources/assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"
         type="text/javascript"></script>
 <#--模板-->
-<script src="/resources/assets/main/js/mustache.js" type="text/javascript"></script>
+<script src="${base}/resources/assets/main/js/mustache.js" type="text/javascript"></script>
 <#--自定义公用的js-->
 <script src="${base}/resources/assets/main/js/amm.js" type="text/javascript"></script>
 

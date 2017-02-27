@@ -56,6 +56,7 @@ public class RegistryContainerImpl implements RegistryContainer {
 
 
     public Map<String, Map<String, Set<URL>>> getRegistryCache() {
+        restart();
         if(!registryCache.containsKey(Constants.PROVIDERS_CATEGORY)){
             registryCache.put(Constants.PROVIDERS_CATEGORY,new ConcurrentHashMap<String, Set<URL>>());
         }

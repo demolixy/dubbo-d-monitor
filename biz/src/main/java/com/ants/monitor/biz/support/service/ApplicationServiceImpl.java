@@ -5,6 +5,7 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.ants.monitor.bean.MonitorConstants;
+import com.ants.monitor.bean.UUIDGenerator;
 import com.ants.monitor.bean.bizBean.ApplicationBO;
 import com.ants.monitor.bean.bizBean.HostBO;
 import com.ants.monitor.bean.bizBean.ServiceBO;
@@ -27,7 +28,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 
     @Autowired
-    private RegistryContainer registryContainer;
+    protected RegistryContainer registryContainer;
 
     @Autowired
     private RedisClientTemplate redisClientTemplate;
@@ -248,10 +249,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         return appMap;
     }
-
+    
 
     //提供者的service处理
-    private void providerService(URL url,ApplicationBO applicationBO,Set<String> testUrlSet,Set<String> onlineUrlSet){
+    protected void providerService(URL url,ApplicationBO applicationBO,Set<String> testUrlSet,Set<String> onlineUrlSet){
         String serviceName = url.getServiceKey();
         String host = url.getHost();
         String port = String.valueOf(url.getPort());
@@ -274,6 +275,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         String owners = url.getParameter(MonitorConstants.OWNER);
         //设置service对象
         ServiceBO serviceBO = new ServiceBO();
+        serviceBO.setUrl(url);
+        serviceBO.setServiceId(UUIDGenerator.getUUID());
         serviceBO.setServiceName(serviceName);
         serviceBO.setOwner(owners == null ? "" : owners);
         Set<String> methodSet = serviceBO.getMethods() ;
