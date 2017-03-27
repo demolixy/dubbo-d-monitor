@@ -12,6 +12,9 @@ public abstract class AbsParamCaller {
     
     protected Class<?> clz;
     
+    public AbsParamCaller(){
+    }
+    
     public AbsParamCaller(Class<?> clz) {
         this.clz = clz;
     }

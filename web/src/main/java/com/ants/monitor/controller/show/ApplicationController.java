@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.dubbo.common.Constants;
+import com.alibaba.dubbo.common.json.JSONObject;
 import com.ants.monitor.bean.MonitorConstants;
 import com.ants.monitor.bean.ResultVO;
 import com.ants.monitor.bean.bizBean.ApplicationBO;
@@ -336,15 +337,18 @@ public class ApplicationController {
         }
         Class t = Class.forName(serviceName);
         Method[] interfaceMethods = t.getMethods();
+        JSONObject json = new JSONObject();
         if(interfaceMethods != null && interfaceMethods.length > 0) {
             for(Method m : interfaceMethods) {
-                m.getParameterTypes();
+                Class<?>[] paramter = m.getParameterTypes();
+                for(Class params : paramter) {
+                    json.put("t", params.getName());
+                }
+                
             }
         }
         return null;
     }
-    
-    
     
     //=======private======
     private List<String> getRecentDay(String type) {
